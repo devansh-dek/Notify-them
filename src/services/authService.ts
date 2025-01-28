@@ -17,14 +17,18 @@ export class AuthService {
         this.userRepository = new UserRepository();
     }
 
-    async register(userData: User): Promise<AuthResponse> {
+    async register(userData: Pick<User, 'email' | 'password'>): Promise<AuthResponse> {
         const existingUser = await this.userRepository.findByEmail(userData.email);
         
         if (existingUser) {
             throw new AuthenticationError('Email already registered');
         }
 
-        const user = await this.userRepository.create(userData);
+        const user = await this.userRepository.create({
+            ...userData,
+            role: 'user'
+        });
+        
         const token = this.generateToken(user);
 
         return {
@@ -32,7 +36,6 @@ export class AuthService {
             user: this.sanitizeUser(user)
         };
     }
-
     async login(email: string, password: string): Promise<AuthResponse> {
         const user = await this.userRepository.findByEmail(email);
         

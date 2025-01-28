@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import mongoose from 'mongoose';
 import { SERVER_CONFIG } from './config/serverConfig';
 import authRouter from './routes/authRoutes';  
+import userRouter from './routes/userRoutes';
+import cookieParser from 'cookie-parser';
 
 class App {
     private app: Express;
@@ -20,12 +22,15 @@ class App {
         this.app.use(helmet({
             crossOriginResourcePolicy: { policy: "cross-origin" }
         }));
+        // Cookie Parser
+        this.app.use(cookieParser(SERVER_CONFIG.COOKIE_SECRET));
 
         // CORS configuration
         const corsOptions = {
             origin: SERVER_CONFIG.CORS_ORIGIN,
             methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
             allowedHeaders: ['Content-Type', 'Authorization'],
+            credentials: true,
             maxAge: 86400,
         };
         this.app.use(cors(corsOptions));
@@ -41,7 +46,9 @@ class App {
             res.status(200).json({ status: 'OK' });
         });
 
-        // Add the authentication routes under /auth
+        // Add the authentication routes under /auth /users
+this.app.use('/users', userRouter);
+
         this.app.use('/auth', authRouter);  // Mount the router on /auth path
     }
 
@@ -68,7 +75,7 @@ class App {
             });
         } catch (error) {
             console.error('Failed to start server:', error);
-            process.exit(1);
+            process.exit(1); 
         }
     }
 }

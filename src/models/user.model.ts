@@ -30,13 +30,6 @@ const availabilityTimeSchema = new Schema({
 });
 
 const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 2,
-        maxlength: 50
-    },
     email: {
         type: String,
         required: true,
@@ -53,11 +46,16 @@ const userSchema = new Schema({
         required: true,
         minlength: 8
     },
+    name: {
+        type: String,
+        trim: true,
+        minlength: 2,
+        maxlength: 50
+    },
     mobileNumber: {
         type: String,
-        required: true,
         validate: {
-            validator: (v: string) => /^\+?[\d\s-]{10,}$/.test(v),
+            validator: (v: string) => !v || /^\+?[\d\s-]{10,}$/.test(v),
             message: 'Please enter a valid mobile number'
         }
     },
@@ -72,10 +70,10 @@ const userSchema = new Schema({
         default: 'user'
     }
 }, {
-    _id: true, 
-    timestamps: true 
-
+    
+    timestamps: true
 });
+
 
 // Pre-save middleware to hash password
 userSchema.pre('save', async function(next) {
