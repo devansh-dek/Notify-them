@@ -5,7 +5,7 @@ dotenv.config();
 export const SERVER_CONFIG = {
     PORT: process.env.PORT || 3000,
     MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/user-management',
-    JWT_SECRET: process.env.JWT_SECRET || 'your-secret-key',
+    JWT_SECRET: process.env.JWT_SECRET || 'default-secret-key' ,
     JWT_EXPIRY: process.env.JWT_EXPIRY || '24h',
     NODE_ENV: process.env.NODE_ENV || 'development',
     CORS_ORIGIN: process.env.CORS_ORIGIN || '*'

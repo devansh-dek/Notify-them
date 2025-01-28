@@ -1,8 +1,12 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { User } from '../interfaces/user.interface';
 
 export interface UserDocument extends User, Document {
+    _id: Types.ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
+
     comparePassword(password: string): Promise<boolean>;
 }
 
@@ -68,7 +72,9 @@ const userSchema = new Schema({
         default: 'user'
     }
 }, {
-    timestamps: true
+    _id: true, 
+    timestamps: true 
+
 });
 
 // Pre-save middleware to hash password
