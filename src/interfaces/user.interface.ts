@@ -1,10 +1,10 @@
 export interface User {
-    name: string;
+    name?: string;
     email: string;
     password: string;
-    mobileNumber: string;
+    mobileNumber?: string;
     bio?: string;
-    availabilityTime: {
+    availabilityTime?: {
         start: string;
         end: string;
     }[];

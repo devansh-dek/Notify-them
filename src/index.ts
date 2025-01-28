@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import { SERVER_CONFIG } from './config/serverConfig';
+import authRouter from './routes/authRoutes';  
 
 class App {
     private app: Express;
@@ -40,7 +41,8 @@ class App {
             res.status(200).json({ status: 'OK' });
         });
 
-        // Future routes will be added here
+        // Add the authentication routes under /auth
+        this.app.use('/auth', authRouter);  // Mount the router on /auth path
     }
 
     private setupErrorHandling(): void {
