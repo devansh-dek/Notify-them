@@ -4,7 +4,7 @@ import { SERVER_CONFIG } from '../config/serverConfig';
 import { UserRepository } from '../repositories/userRepository';
 
 interface JWTPayload {
-  id: string;
+  _id: string;
   role: string;
 }
 

@@ -6,6 +6,7 @@ import { SERVER_CONFIG } from './config/serverConfig';
 import authRouter from './routes/authRoutes';  
 import userRouter from './routes/userRoutes';
 import cookieParser from 'cookie-parser';
+import notificationRouter from './routes/notificationRoutes';
 
 class App {
     private app: Express;
@@ -48,6 +49,9 @@ class App {
 
         // Add the authentication routes under /auth /users
 this.app.use('/users', userRouter);
+this.app.use('/api/notifications', notificationRouter);
+
+
 
         this.app.use('/auth', authRouter);  // Mount the router on /auth path
     }
