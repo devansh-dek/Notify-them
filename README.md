@@ -1,4 +1,4 @@
-# Reeltor-backend-assignment
+# Notify Them Backend
 # User Management and Notification System
 
 A robust Node.js backend service built with Express and TypeScript that handles user management, authentication, and a sophisticated notification delivery system with user availability preferences.
